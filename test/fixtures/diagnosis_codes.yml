@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  short_desc: MyString
+  long_desc: MyString
+
+two:
+  code: MyString
+  short_desc: MyString
+  long_desc: MyString

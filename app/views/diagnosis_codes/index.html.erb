@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Diagnosis Codes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Short desc</th>
+      <th>Long desc</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @diagnosis_codes.each do |diagnosis_code| %>
+      <tr>
+        <td><%= diagnosis_code.code %></td>
+        <td><%= diagnosis_code.short_desc %></td>
+        <td><%= diagnosis_code.long_desc %></td>
+        <td><%= link_to 'Show', diagnosis_code %></td>
+        <td><%= link_to 'Edit', edit_diagnosis_code_path(diagnosis_code) %></td>
+        <td><%= link_to 'Destroy', diagnosis_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Diagnosis Code', new_diagnosis_code_path %>

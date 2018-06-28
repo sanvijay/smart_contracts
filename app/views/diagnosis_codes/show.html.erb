@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @diagnosis_code.code %>
+</p>
+
+<p>
+  <strong>Short desc:</strong>
+  <%= @diagnosis_code.short_desc %>
+</p>
+
+<p>
+  <strong>Long desc:</strong>
+  <%= @diagnosis_code.long_desc %>
+</p>
+
+<%= link_to 'Edit', edit_diagnosis_code_path(@diagnosis_code) %> |
+<%= link_to 'Back', diagnosis_codes_path %>
