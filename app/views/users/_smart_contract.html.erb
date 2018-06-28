@@ -1,0 +1,14 @@
+  <div class="col-md-3 col-md-offset-3"></div>
+  <div class="col-md-9 col-md-offset-9">
+    <%= form_for(:user_insurance, url: check_valid_diagnosis_user_path(@user), remote: true, method: :get) do |f| %>
+
+      <div class="field">
+      <%= f.label :illness %>
+      <%= f.text_field :illness %>
+      </div>
+
+      <div id="message"></div>
+
+      <%= f.submit "Check it covers", class: "btn btn-primary" %>
+    <% end %>
+  </div>

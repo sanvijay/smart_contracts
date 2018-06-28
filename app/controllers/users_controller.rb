@@ -8,10 +8,15 @@ class UsersController < ApplicationController
   end
 
   def check_valid_diagnosis
-    valid = @smart_contract.eligible_for_diagnosis_code?(params[:user_insurance][:illness])
+    @p_code = params[:user_insurance][:illness]
+    valid = @smart_contract.eligible_for_diagnosis_code?(@p_code)
+
+    @eligible_codes = @smart_contract.eligible_for_diagnosis_code
+
+    @valid_message = valid ? valid_additional_info : 'Sorry! You are not eligible for the treatment'
 
     respond_to do |format|
-      format.json { render json: { valid: valid } }
+      format.js
     end
   end
 
@@ -35,5 +40,16 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation, :smart_contract)
+    end
+
+    def valid_additional_info
+      doctors = @eligible_codes[@p_code.to_sym][:doctors]
+      copay = @eligible_codes[@p_code.to_sym][:copay]
+
+      html = "<ul>"
+      html << "<li>Doctors: #{doctors}</li>"
+      html << "<li>Copay: #{copay}</li>"
+      html << "</ul>"
+      html.html_safe
     end
 end

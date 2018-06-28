@@ -1,9 +1,15 @@
 class InsurancePlan1
 
-  ACCEPTED_DIAGNOSIS_CODE = [
-    'A0104',
-    'A0109'
-  ]
+  ACCEPTED_DIAGNOSIS_CODE = {
+    :'A0104' => {
+      copay: 20,
+      doctors: ['Akshay', 'Praveen', 'Buvi']
+    },
+    :'A0109' => {
+      copay: 10,
+      doctors: ['Raghav', 'Prem', 'Abhishek']
+    }
+  }
 
   def self.expired?(date)
     EXPIRY_DATE > date
@@ -14,6 +20,6 @@ class InsurancePlan1
   end
 
   def self.eligible_for_diagnosis_code?(code)
-    (ADDITIONAL_DIAGNOSIS_CODE + ACCEPTED_DIAGNOSIS_CODE).include?(code)
+    (ADDITIONAL_DIAGNOSIS_CODE.keys + ACCEPTED_DIAGNOSIS_CODE.keys).include?(code)
   end
 end
