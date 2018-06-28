@@ -4,7 +4,7 @@ class DiagnosisCodesController < ApplicationController
   # GET /diagnosis_codes
   # GET /diagnosis_codes.json
   def index
-    @diagnosis_codes = DiagnosisCode.all
+    @diagnosis_codes = DiagnosisCode.paginate(:page => params[:page])
   end
 
   # GET /diagnosis_codes/1
