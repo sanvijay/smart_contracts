@@ -3,17 +3,22 @@ class UsersController < ApplicationController
 
   def show; end
 
+  def insurance_plan
+    @user = User.find(5)
+    @smart_contract = @user.smart_contract.camelcase.constantize
+  end
+
   def new
     @user = User.new
   end
 
   def check_valid_diagnosis
-    @p_code = params[:user_insurance][:illness]
-    valid = @smart_contract.eligible_for_diagnosis_code?(@p_code)
+    p_code = params[:user_insurance][:illness]
+    valid = @smart_contract.eligible_for_diagnosis_code?(p_code)
 
     @eligible_codes = @smart_contract.eligible_for_diagnosis_code
 
-    @valid_message = valid ? valid_additional_info : 'Sorry! You are not eligible for the treatment'
+    @valid_message = valid ? valid_additional_info(valid) : 'Sorry! You are not eligible for the treatment'
 
     respond_to do |format|
       format.js
@@ -42,13 +47,14 @@ class UsersController < ApplicationController
                                    :password_confirmation, :smart_contract)
     end
 
-    def valid_additional_info
-      doctors = @eligible_codes[@p_code.to_sym][:doctors]
-      copay = @eligible_codes[@p_code.to_sym][:copay]
+    def valid_additional_info(code)
+      code = code.to_sym
+      doctors = @eligible_codes[code][:doctors]
+      copay = @eligible_codes[code][:copay]
 
       html = "<ul>"
-      html << "<li>Doctors: #{doctors}</li>"
-      html << "<li>Copay: #{copay}</li>"
+      html << "<li>Currently there are #{doctors.count} providers in your area who accept this insurance</li>"
+      html << "<li>Expected co-pay is #{copay}%</li>"
       html << "</ul>"
       html.html_safe
     end

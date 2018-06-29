@@ -22,6 +22,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'will_paginate', '~> 3.1.0'
+gem 'wicked_pdf'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

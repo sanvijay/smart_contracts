@@ -3,7 +3,7 @@
     <%= form_for(:user_insurance, url: check_valid_diagnosis_user_path(@user), remote: true, method: :get) do |f| %>
 
       <div class="field">
-      <%= f.label :illness %>
+      <%= f.label "Am I eligible for" %>
       <%= f.text_field :illness %>
       </div>
 

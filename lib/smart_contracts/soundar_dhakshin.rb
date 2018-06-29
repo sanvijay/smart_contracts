@@ -1,15 +1,27 @@
-class InsurancePlan1
+require 'insurance_plan_1'
 
-  ACCEPTED_DIAGNOSIS_CODE = {
-    :'A0104' => {
-      copay: '20',
-      doctors: ['Akshay', 'Praveen', 'Buvi']
-    },
-    :'A0109' => {
-      copay: '10',
-      doctors: ['Raghav', 'Prem', 'Abhishek']
+class SoundarDhakshin < InsurancePlan1
+  ISSUED_DATE = Date.parse('12/01/2018')
+  EXPIRY_DATE = Date.parse('12/01/2020')
+
+  ADDITIONAL_DIAGNOSIS_CODE = {
+    :'A0100' => {
+      copay: 25,
+      doctors: ['Tharunkumar']
     }
   }
+
+  def self.expired?(date)
+    EXPIRY_DATE > date
+  end
+
+  def self.expiry_date
+    EXPIRY_DATE
+  end
+
+  def self.issued_date
+    ISSUED_DATE
+  end
 
   def self.eligible_for_diagnosis_code?(short_desc)
     short_desc = short_desc.to_sym
@@ -28,6 +40,8 @@ class InsurancePlan1
 
   def self.show_html
     all_diag = ADDITIONAL_DIAGNOSIS_CODE.merge(ACCEPTED_DIAGNOSIS_CODE)
+    html = "<div>Your contract issued on #{ISSUED_DATE}</div><br>"
+    html = "<div>Your contract expires on #{EXPIRY_DATE}</div><br>"
     html << "<div>More details:</div>"
     html << "</ul>"
     all_diag.each do |k, v|

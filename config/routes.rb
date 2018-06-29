@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post '/signup',  to: 'users#create'
   get  '/signup',  to: 'users#new'
 
+  get  '/insurance_plan', to: 'users#insurance_plan'
+
   resources :diagnosis_codes
   resources :users do
     member do
